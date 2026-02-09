@@ -1,0 +1,176 @@
+/* ------------------------------------------------------------------------------------------------------------------------------
+COMPONENTS
+--------------------------------------------------------------------------------------------------------------------------------*/
+
+// ------------------------------------------------------
+// Small Button
+// ------------------------------------------------------
+.rounded-button-sm {
+	border-radius: 27px;
+	backdrop-filter: blur(122.5px);
+	background: rgba(255, 255, 255, 0.11);
+	padding-inline: 22px;
+	height: 33px;
+
+	display: flex;
+	align-items: center;
+	gap: 5px;
+
+	// Иконки внутри кнопки
+	svg {
+		width: 22px;
+		height: 22px;
+	}
+
+	font-family: var(--font-family);
+	font-weight: 600;
+	font-size: 16px;
+	color: #fff;
+
+	border: #92a8ff 1px solid;
+	transition: all 0.3s ease-in-out;
+	cursor: pointer;
+
+	&:hover {
+		background: rgba(255, 255, 255, 0.31);
+	}
+
+	&:focus {
+		outline: #92efff 2px solid;
+	}
+}
+
+// ------------------------------------------------------
+// Large Button
+// ------------------------------------------------------
+.rounded-button-lg {
+	border-radius: 27px;
+	backdrop-filter: blur(12px);
+	background: rgba(255, 255, 255, 0.16);
+	padding-inline: 22px;
+	height: 57px;
+
+	display: flex;
+	align-items: center;
+	gap: 10px;
+
+	// Иконки внутри кнопки
+	svg {
+		width: 22px;
+		height: 22px;
+	}
+
+	font-family: var(--font-family);
+	font-weight: 600;
+	font-size: 24px;
+	text-align: center;
+	color: #fff;
+	text-shadow: 0 1px 20px 0 rgba(0, 0, 0, 0.1);
+
+	border: #92a8ff 1px solid;
+	transition: all 0.3s ease-in-out;
+	cursor: pointer;
+
+	&:hover {
+		background: rgba(255, 255, 255, 0.31);
+	}
+
+	&:focus {
+		outline: #92efff 2px solid;
+	}
+}
+
+// ------------------------------
+// Кнопка внутри формы
+// ------------------------------
+.rounded-sky-button-lg {
+	flex-shrink: 0;
+	padding-inline: 17px;
+	border-radius: 20px;
+
+	font-family: var(--font-family);
+	font-weight: 900;
+	font-size: 8px;
+	text-align: center;
+	color: #fff;
+	height: 20px;
+
+	@include sm() {
+		border-radius: 24px;
+		padding-inline: 20px;
+		height: 40px;
+		font-size: 16px;
+	}
+
+	@include xl {
+		border-radius: 27px;
+		padding-inline: 22px;
+		height: 57px;
+
+		font-weight: 900;
+		font-size: 24px;
+	}
+
+	text-shadow: 0 1px 20px 0 rgba(0, 0, 0, 0.1);
+
+	border: #92a8ff 1px solid;
+	transition: all 0.3s ease-in-out;
+
+	backdrop-filter: blur(11px);
+	background: linear-gradient(140deg, rgba(0, 255, 252, 0.87) 0%, rgba(0, 188, 255, 0.87) 100%);
+
+	&:hover {
+		opacity: 0.75;
+	}
+	cursor: pointer;
+
+	&:focus {
+		outline: #92efff 2px solid;
+	}
+}
+
+// ------------------------------------------------------
+// Input Field for Cooperation Section
+// ------------------------------------------------------
+.cooperation-input {
+	height: 19px;
+	border-radius: 4px;
+	padding-inline: 5px;
+
+	font-family: var(--font-family);
+	font-weight: 400;
+	font-size: 8px;
+	color: #fff;
+
+	@include sm() {
+		height: 40px;
+		padding-inline: 12px;
+		border-radius: 10px;
+		font-size: 16px;
+	}
+
+	@include xl {
+		height: 57px;
+		padding-inline: 17px;
+		border-radius: 12px;
+		font-size: 24px;
+	}
+
+	flex-grow: 1;
+	width: 100%;
+
+	padding-block: 10px;
+
+	backdrop-filter: blur(10px);
+	background: rgba(255, 255, 255, 0.11);
+
+	border: #92efff 1px solid;
+
+	&:focus {
+		outline: #92efff 2px solid;
+	}
+
+	&::placeholder {
+		color: rgba(255, 255, 255, 0.75);
+	}
+}

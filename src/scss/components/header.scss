@@ -1,0 +1,114 @@
+/* ------------------------------------------------------------------------------------------------------------------------------
+HEADER
+--------------------------------------------------------------------------------------------------------------------------------*/
+.header {
+	min-height: 200px;
+	padding-bottom: 20px;
+	@include sm {
+		padding-bottom: 35px;
+	}
+
+	// ------------------------------
+	// Фон для мобильной версии
+	// ------------------------------
+	&.mobile {
+		background: url("../images/mobile-top-bg.webp");
+		background-repeat: no-repeat;
+		background-position: 0 0;
+		background-size: 100% 100%;
+	}
+
+	// ------------------------------
+	// Фон для десктопной версии
+	// ------------------------------
+	&.desktop {
+		@include sm() {
+			background: url("../images/desktop-top-bg.webp");
+			background-repeat: no-repeat;
+			background-position: 0 0;
+			background-size: 100% 100%;
+		}
+	}
+
+	// ------------------------------
+	// Строка внутри хедера: логотип + кнопки/контент
+	// ------------------------------
+	&__row {
+		height: 55px;
+		@include sm {
+			height: 75px;
+		}
+
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	// ------------------------------
+	// Логотип
+	// ------------------------------
+	&__logo {
+		display: block;
+		aspect-ratio: 158/37;
+		width: 158px;
+	}
+
+	// ------------------------------
+	// Секция “Cooperation” с текстом
+	// ------------------------------
+	&__cooperation {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+
+		@include sm() {
+			gap: 18px;
+			font-size: 18px;
+		}
+
+		@include xl {
+			gap: 25px;
+
+			font-family: var(--font-family);
+			font-weight: 900;
+			font-size: 23px;
+			text-align: center;
+			color: #c2f9ff;
+		}
+
+		font-family: var(--font-family);
+		font-weight: 900;
+		font-size: 11px;
+		text-align: center;
+		color: #c2f9ff;
+	}
+
+	// ------------------------------
+	// Основной заголовок
+	// ------------------------------
+	h1 {
+		font-family: var(--font-family);
+		font-weight: 700;
+		font-size: 28px;
+		color: #fff;
+
+		@include sm() {
+			font-size: 48px; // планшет
+		}
+
+		@include xl {
+			font-family: var(--font-family);
+			font-weight: 700;
+			font-size: 96px;
+			color: #fff;
+		}
+	}
+
+	// ------------------------------
+	// Кнопка в хедере
+	// ------------------------------
+	.rounded-button-lg {
+		margin-inline: auto;
+		margin-top: 10px;
+	}
+}

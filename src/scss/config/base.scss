@@ -1,0 +1,122 @@
+/* ------------------------------------------------------------------------------------------------------------------------------
+BASE
+--------------------------------------------------------------------------------------------------------------------------------*/
+* {
+	margin: 0;
+	border: 0;
+	padding: 0;
+	-webkit-tap-highlight-color: transparent;
+
+	&,
+	&::before,
+	&::after {
+		box-sizing: border-box;
+	}
+
+	&:focus,
+	&:active {
+		outline: none;
+	}
+}
+
+nav,
+footer,
+header,
+aside {
+	display: block;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+html,
+body {
+	inline-size: 100%;
+	block-size: 100%;
+}
+
+body {
+	overscroll-behavior: none;
+	text-rendering: optimizelegibility;
+	text-size-adjust: 100%;
+	font-family: var(--font-main);
+	font-size: 16px;
+	font-weight: 400;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-font-smoothing: antialiased;
+	text-wrap: balance;
+}
+
+.container,
+[class*="__container"] {
+	margin-inline: auto;
+	min-inline-size: 320px;
+	max-inline-size: var(--container-width);
+	padding-inline: var(--container-padding-small);
+	@include sm {
+		padding-inline: var(--container-padding-large);
+	}
+	@include xl {
+		padding-inline: var(--container-padding-desktop);
+	}
+}
+
+[class*="__container--wide50"] {
+	margin-inline: auto;
+	min-inline-size: 320px;
+	max-inline-size: calc(var(--container-width) + 50px);
+	padding-inline: var(--container-padding-small);
+	@include sm {
+		padding-inline: var(--container-padding-large);
+	}
+	@include xl {
+		padding-inline: var(--container-padding-desktop);
+	}
+}
+
+.icon {
+	max-width: 50px;
+	max-height: 50px;
+}
+
+.img-responsive {
+	display: block;
+	width: 100%;
+	height: auto;
+	object-fit: cover;
+	overflow: hidden;
+}
+
+.image-bg {
+	position: relative;
+
+	img {
+		display: block;
+		position: absolute;
+		inset-block-start: 0;
+		inset-inline-start: 0;
+		object-fit: cover;
+		block-size: 100%;
+		inline-size: 100%;
+	}
+}
+
+.wrapper {
+	display: flex;
+	min-block-size: 100%;
+
+	/** Поменять на clip - если используется в проекте position: sticky */
+	overflow: hidden;
+	flex-direction: column;
+}
+
+.main {
+	background: #2f6bc3;
+	@include sm {
+		background: #3f82d3;
+	}
+
+	position: relative;
+	flex: 1 1 auto;
+	display: flex;
+}

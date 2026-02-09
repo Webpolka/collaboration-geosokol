@@ -1,0 +1,314 @@
+/* ------------------------------------------------------------------------------------------------------------------------------
+MAIN CONTAINER / HEADER
+--------------------------------------------------------------------------------------------------------------------------------*/
+.main__container {
+	flex-grow: 1;
+	overflow: hidden;
+	background-position: 0 0;
+	background-repeat: no-repeat;
+
+	padding-block-start: 40px;
+
+	border-top-left-radius: 34px;
+	border-top-right-radius: 34px;
+	@include sm {
+		padding-block-start: 50px;
+		border-top-left-radius: 54px;
+		border-top-right-radius: 54px;
+	}
+	@include xl {
+		border-top-left-radius: 74px;
+		border-top-right-radius: 74px;
+	}
+
+	// ------------------------------
+	// Фон для мобильной версии
+	// ------------------------------
+	&.mobile {
+		background: url("../images/mobile-bg.webp");
+		background-size: 100% 100%;
+		padding-block-end: 50px;
+	}
+
+	// ------------------------------
+	// Фон для десктопной версии
+	// ------------------------------
+	&.desktop {
+		@include sm() {
+			background: url("../images/desktop-bg.webp");
+			background-size: 100% 100%;
+			padding-block-end: 165px;
+		}
+	}
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------------
+MAIN SECTION
+--------------------------------------------------------------------------------------------------------------------------------*/
+.main__section {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+
+	@include sm {
+		gap: 20px;
+	}
+
+	@include xl {
+		gap: 35px;
+	}
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------------
+CARD STYLES
+--------------------------------------------------------------------------------------------------------------------------------*/
+.main__card {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	color: var(--text);
+
+	&image {
+		width: 160px;
+		height: 160px;
+		// планшет
+		@include sm() {
+			width: 220px;
+			height: 220px;
+		}
+		@include xl {
+			width: 300px;
+			height: 300px;
+		}
+
+		img {
+			display: block;
+			width: 100%;
+			height: auto;
+			object-fit: cover;
+			overflow: hidden;
+		}
+	}
+
+	&form {
+		font-family: var(--font-family);
+		font-weight: 600;
+		text-align: center;
+		color: #c2f9ff;
+		width: 100%;
+
+		font-size: 14px;
+		margin-top: 10px;
+		@include sm {
+			font-size: 18px;
+			margin-top: 15px;
+		}
+		@include xl {
+			font-size: 23px;
+			margin-top: 20px;
+		}
+
+		h2 {
+			margin-bottom: 5px;
+		}
+
+		form {
+			margin-top: 25px;
+			@include sm() {
+				margin-top: 40px;
+			}
+			@include xl {
+				margin-top: 60px;
+			}
+		}
+	}
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------------
+MAIN BLOCK (Text + Gradient Masks)
+--------------------------------------------------------------------------------------------------------------------------------*/
+.main__block {
+	position: relative;
+	overflow: visible; // чтобы маски вылезали за блок
+	text-align: center;
+
+	font-family: var(--font-family);
+	font-weight: 600;
+	font-size: 10.5px;
+	text-align: center;
+	color: #c2f9ff;
+
+	// планшетный текст
+	@include sm() {
+		font-size: 16px;
+	}
+
+	@include xl {
+		font-size: 24px;
+	}
+
+	h2 {
+		font-family: var(--font-family);
+		font-weight: 900;
+		text-align: center;
+		color: #fff;
+		letter-spacing: -0.02em;
+		margin-bottom: 5px;
+
+		&.mob-22 {
+			font-size: 22px;
+			@include sm() {
+				font-size: 32px;
+			}
+			@include xl {
+				font-size: 48px;
+			}
+		}
+
+		&.mob-24 {
+			font-size: 24px;
+			@include sm() {
+				font-size: 36px;
+			}
+			@include xl {
+				font-size: 48px;
+			}
+		}
+
+		&.mob-25 {
+			font-size: 25px;
+			@include sm() {
+				font-size: 38px;
+			}
+			@include xl {
+				font-size: 48px;
+			}
+		}
+	}
+
+	// ------------------------------
+	// Верхняя маска — компактная
+	// ------------------------------
+	&::before {
+		content: "";
+		position: absolute;
+		top: 25%; // сверху блока
+		left: 50%;
+		width: 80%; // 70% ширины блока
+		height: 100px; // базовая высота для мобилки
+		transform: translateX(-50%);
+		border-radius: 50%;
+		background: linear-gradient(211deg, #00d0ff 0%, #0015ff 100%);
+		filter: blur(40px);
+		z-index: 0;
+
+		@include md() {
+			width: 70%;
+			height: 110px; // планшет
+			filter: blur(60px);
+		}
+
+		@include lg() {
+			height: 120px; // десктоп
+			filter: blur(80px);
+		}
+	}
+
+	// ------------------------------
+	// Нижняя маска — широкая, фон
+	// ------------------------------
+	&::after {
+		content: "";
+		position: absolute;
+		top: 40%; // чуть ниже верхней маски
+		left: 50%;
+		width: 180%; // выходит за края блока
+		height: 30px; // базовая высота для мобилки
+		transform: translateX(-50%) rotate(-5deg);
+		border-radius: 50%;
+		background: conic-gradient(from 90deg, #00d0ff 0deg, #0015ff 360deg);
+		filter: blur(40px);
+		opacity: 0.9;
+		z-index: 0;
+
+		@include md() {
+			height: 115px; // планшет
+			filter: blur(70px);
+		}
+
+		@include lg() {
+			height: 130px; // десктоп
+			filter: blur(80px);
+		}
+	}
+
+	// ------------------------------
+	// Карточка поверх масок
+	// ------------------------------
+	.main__card {
+		position: relative;
+		z-index: 1;
+	}
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------------
+CARD TILE STYLES
+--------------------------------------------------------------------------------------------------------------------------------*/
+.main__cardtile {
+	padding-bottom: 20px;
+	backdrop-filter: blur(11.5px);
+	background: rgba(255, 255, 255, 0.11);
+
+	border: #92a8ff 1px solid;
+	width: 100%;
+
+	border-radius: 16px;
+	padding-inline: 2px;
+	padding-block-start: 7px;
+	padding-block-end: 11px;
+
+	@include xl {
+		border-radius: 27px;
+		padding-block: 20px;
+		padding-inline: 35px;
+	}
+
+	// ------------------------------
+	// Строка для формы
+	// ------------------------------
+	&-row {
+		display: flex;
+		align-items: center;
+		padding-inline: 10px;
+
+		gap: 10px;
+		border-radius: 9px;
+		padding-block: 7px;
+		@include sm {
+			gap: 20px;
+			border-radius: 15px;
+			padding-block: 15px;
+		}
+		@include xl {
+			gap: 40px;
+			border-radius: 27px;
+			padding-block: 20px;
+		}
+	}
+}
+
+// extra clases
+.px-150-dynamic {
+	@include xl {
+		padding-inline: 130px;
+	}
+}
+.-t-65-dynamic {
+	transform: translateY(-33px);
+	@include sm {
+		transform: translateY(-44px);
+	}
+	@include xl {
+		transform: translateY(-65px);
+	}
+}
