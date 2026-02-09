@@ -5,7 +5,6 @@ import { filePaths } from './gulp/config/paths.js';
 /**
  * Импорт задач
  */
-import { copy } from './gulp/tasks/copy.js';
 import { copyRootFiles } from './gulp/tasks/copy-root-files.js';
 import { reset } from './gulp/tasks/reset.js';
 import { html } from './gulp/tasks/html.js';
@@ -37,7 +36,6 @@ const handleSvg = svg.bind(null, isBuild, browserSyncInstance);
  * Наблюдатель за изменениями в файлах
  */
 function watcher() {
-  gulp.watch(filePaths.watch.static, copy);
   gulp.watch(filePaths.watch.html, handleHTML);
   gulp.watch(filePaths.watch.scss, handleSCSS);
   gulp.watch(filePaths.watch.js, handleJS);
@@ -53,7 +51,7 @@ const fonts = gulp.series(otfToTtf, ttfToWoff, fontStyle);
 /**
  * Параллельные задачи в режиме разработки
  * */
-const devTasks = gulp.parallel(copy, copyRootFiles, createSvgSprite, handleHTML, handleSCSS, handleJS, handleImages, handleSvg);
+const devTasks = gulp.parallel(copyRootFiles, createSvgSprite, handleHTML, handleSCSS, handleJS, handleImages, handleSvg);
 
 /**
  * Основные задачи
