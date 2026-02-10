@@ -325,110 +325,204 @@ body {
 COMPONENTS
 --------------------------------------------------------------------------------------------------------------------------------*/
 .rounded-button-sm {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+       appearance: none;
+  box-sizing: border-box;
   border-radius: 1.6875rem;
+  /* Safari backdrop fix */
   backdrop-filter: blur(7.65625rem);
+  -webkit-backdrop-filter: blur(7.65625rem);
   background: rgba(255, 255, 255, 0.11);
-  padding-inline: 1.375rem;
-  height: 2.0625rem;
-  display: flex;
+  padding: 0.375rem 1.375rem; /* вместо height */
+  min-height: 2.0625rem;
+  display: inline-flex;
   align-items: center;
-  gap: 0.3125rem;
+  justify-content: center;
+  /* старые iOS иногда плохо с gap */
+  gap: 0.375rem;
   font-family: var(--font-family);
   font-weight: 600;
   font-size: 1rem;
+  line-height: 1;
   color: #fff;
-  border: #92a8ff 0.0625rem solid;
-  transition: all 0.3s ease-in-out;
+  border: 0.0625rem solid #92a8ff;
   cursor: pointer;
+  transition: background 0.25s ease, border 0.25s ease, transform 0.08s ease;
+  /* сглаживание текста на Apple */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* фикс странных обрезаний blur */
+  background-clip: padding-box;
 }
 .rounded-button-sm svg {
-  width: 1.375rem;
-  height: 1.375rem;
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+  display: block;
 }
 .rounded-button-sm:hover {
-  background: rgba(255, 255, 255, 0.31);
+  background: rgba(255, 255, 255, 0.28);
 }
-.rounded-button-sm:focus {
-  outline: #92efff 0.125rem solid;
+.rounded-button-sm:active {
+  transform: scale(0.97);
+}
+.rounded-button-sm:focus-visible {
+  outline: 0.125rem solid #92efff;
+  outline-offset: 0.125rem;
 }
 
 .rounded-button-lg {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+       appearance: none;
+  box-sizing: border-box;
   border-radius: 1.6875rem;
+  /* blur фикс для Safari */
   backdrop-filter: blur(0.75rem);
+  -webkit-backdrop-filter: blur(0.75rem);
   background: rgba(255, 255, 255, 0.16);
-  padding-inline: 1.375rem;
-  height: 3.5625rem;
-  display: flex;
+  background-clip: padding-box;
+  /* вместо height — стабильнее на iOS */
+  padding: 0.875rem 1.375rem;
+  min-height: 3.5625rem;
+  display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.625rem;
   font-family: var(--font-family);
   font-weight: 600;
   font-size: 1.5rem;
-  text-align: center;
+  line-height: 1;
   color: #fff;
-  text-shadow: 0 0.0625rem 1.25rem 0 rgba(0, 0, 0, 0.1);
-  border: #92a8ff 0.0625rem solid;
-  transition: all 0.3s ease-in-out;
+  text-align: center;
+  /* Apple текст фикс */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-shadow: 0 0.0625rem 1.25rem rgba(0, 0, 0, 0.1);
+  border: 0.0625rem solid #92a8ff;
   cursor: pointer;
+  /* не юзай transition: all — Safari лагает */
+  transition: background 0.25s ease, border 0.25s ease, transform 0.08s ease, box-shadow 0.25s ease;
+  /* фикс blur артефактов */
+  will-change: backdrop-filter, transform;
+  /* нормальный фокус для Apple */
 }
 .rounded-button-lg svg {
   width: 1.375rem;
   height: 1.375rem;
+  flex-shrink: 0;
+  display: block;
 }
 .rounded-button-lg:hover {
-  background: rgba(255, 255, 255, 0.31);
+  background: rgba(255, 255, 255, 0.3);
 }
-.rounded-button-lg:focus {
-  outline: #92efff 0.125rem solid;
+.rounded-button-lg:active {
+  transform: scale(0.97);
+}
+.rounded-button-lg:focus-visible {
+  outline: 0.125rem solid #92efff;
+  outline-offset: 0.1875rem;
 }
 
 .rounded-sky-button-lg {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+       appearance: none;
+  box-sizing: border-box;
   flex-shrink: 0;
-  padding-inline: 1.0625rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 1.25rem;
+  padding: 0.25rem 1.0625rem;
+  min-height: 1.25rem;
   font-family: var(--font-family);
   font-weight: 900;
   font-size: 0.5rem;
+  line-height: 1;
   text-align: center;
   color: #fff;
-  height: 1.25rem;
-  text-shadow: 0 0.0625rem 1.25rem 0 rgba(0, 0, 0, 0.1);
-  border: #92a8ff 0.0625rem solid;
-  transition: all 0.3s ease-in-out;
+  /* текст красивее на Apple */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-shadow: 0 0.0625rem 1.25rem rgba(0, 0, 0, 0.1);
+  border: 0.0625rem solid #92a8ff;
+  /* blur фикс */
   backdrop-filter: blur(0.6875rem);
+  -webkit-backdrop-filter: blur(0.6875rem);
+  /* градиент стабильный */
   background: linear-gradient(140deg, rgba(0, 255, 252, 0.87) 0%, rgba(0, 188, 255, 0.87) 100%);
+  background-clip: padding-box;
   cursor: pointer;
+  /* Safari лаги убираем */
+  transition: opacity 0.25s ease, transform 0.08s ease, box-shadow 0.25s ease;
+  will-change: transform, opacity, backdrop-filter;
+  /* tap фикс iOS */
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  /* ===== SM ===== */
+  /* ===== XL ===== */
 }
 .rounded-sky-button-lg:hover {
-  opacity: 0.75;
+  opacity: 0.8;
 }
-.rounded-sky-button-lg:focus {
-  outline: #92efff 0.125rem solid;
+.rounded-sky-button-lg:active {
+  transform: scale(0.97);
+}
+.rounded-sky-button-lg:focus-visible {
+  outline: 0.125rem solid #92efff;
+  outline-offset: 0.125rem;
 }
 
 .cooperation-input {
-  height: 1.1875rem;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+       appearance: none;
+  box-sizing: border-box;
+  flex-grow: 1;
+  width: 100%;
+  display: block;
+  /* вместо height — стабильнее */
+  padding: 0.375rem 0.5rem;
+  min-height: 1.1875rem;
   border-radius: 0.25rem;
-  padding-inline: 0.3125rem;
   font-family: var(--font-family);
   font-weight: 400;
   font-size: 0.5rem;
+  line-height: 1.2;
   color: #fff;
-  flex-grow: 1;
-  width: 100%;
-  padding-block: 0.625rem;
+  /* текст красивый на Apple */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* blur фикс */
   backdrop-filter: blur(0.625rem);
+  -webkit-backdrop-filter: blur(0.625rem);
   background: rgba(255, 255, 255, 0.11);
-  border: #92efff 0.0625rem solid;
-}
-.cooperation-input:focus {
-  outline: #92efff 0.125rem solid;
+  background-clip: padding-box;
+  border: 0.0625rem solid #92efff;
+  transition: border 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  /* убирает zoom iOS при фокусе */
+  transform: translateZ(0);
+  /* убирает системный стиль iOS */
+  -webkit-tap-highlight-color: transparent;
+  /* placeholder */
+  /* focus */
+  /* ===== SM ===== */
+  /* ===== XL ===== */
 }
 .cooperation-input::-moz-placeholder {
   color: rgba(255, 255, 255, 0.75);
+  opacity: 1; /* safari фикс */
 }
 .cooperation-input::placeholder {
   color: rgba(255, 255, 255, 0.75);
+  opacity: 1; /* safari фикс */
+}
+.cooperation-input:focus {
+  outline: none;
+  border: 0.0625rem solid #92efff;
+  box-shadow: 0 0 0 0.125rem rgba(146, 239, 255, 0.35);
 }
 
 /* ------------------------------------------------------------------------------------------------------------------------------
@@ -437,23 +531,31 @@ HEADER
 .header {
   min-height: 12.5rem;
   padding-bottom: 1.25rem;
+  /* фикс рендеринга на Safari */
+  box-sizing: border-box;
+  position: relative;
+  z-index: 1;
 }
 .header.mobile {
-  background: url("../images/mobile-top-bg.webp");
-  background-repeat: no-repeat;
-  background-position: 0 0;
+  background: url("../images/mobile-top-bg.webp") no-repeat 0 0;
   background-size: 100% 100%;
+  /* фикс дерганий фона на iOS */
+  background-attachment: scroll;
 }
 .header__row {
   height: 3.4375rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  /* Safari flex fix */
+  min-width: 0;
 }
 .header__logo {
   display: block;
   aspect-ratio: 158/37;
   width: 9.875rem;
+  /* чтобы не схлопывался в flex */
+  flex-shrink: 0;
 }
 .header__cooperation {
   display: flex;
@@ -464,16 +566,26 @@ HEADER
   font-size: 0.6875rem;
   text-align: center;
   color: #c2f9ff;
+  /* стабильность текста */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 .header h1 {
   font-family: var(--font-family);
   font-weight: 700;
   font-size: 1.75rem;
   color: #fff;
+  margin: 0; /* safari стандартный margin убираем */
+  /* красивый текст на apple */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 .header .rounded-button-lg {
   margin-inline: auto;
   margin-top: 0.625rem;
+  /* фикс Safari margin auto */
+  display: flex;
+  justify-content: center;
 }
 
 /* ------------------------------------------------------------------------------------------------------------------------------
@@ -484,14 +596,21 @@ MAIN CONTAINER / HEADER
   overflow: hidden;
   background-position: 0 0;
   background-repeat: no-repeat;
+  /* стабильность layout */
+  box-sizing: border-box;
+  position: relative;
+  z-index: 1;
+  min-width: 0;
   padding-block-start: 2.5rem;
   border-top-left-radius: 2.125rem;
   border-top-right-radius: 2.125rem;
 }
 .main__container.mobile {
-  background: url("../images/mobile-bg.webp");
+  background: url("../images/mobile-bg.webp") no-repeat 0 0;
   background-size: 100% 100%;
   padding-block-end: 3.125rem;
+  /* iOS bg repaint fix */
+  background-attachment: scroll;
 }
 
 /* ------------------------------------------------------------------------------------------------------------------------------
@@ -501,6 +620,8 @@ MAIN SECTION
   display: flex;
   flex-direction: column;
   gap: 0.125rem;
+  /* safari flex fix */
+  min-width: 0;
 }
 
 /* ------------------------------------------------------------------------------------------------------------------------------
@@ -511,10 +632,15 @@ CARD STYLES
   flex-direction: column;
   align-items: center;
   color: var(--text);
+  /* чтобы blur/transform не лагал */
+  position: relative;
+  z-index: 1;
 }
 .main__cardimage {
   width: 10rem;
   height: 10rem;
+  /* чтобы img не схлопывался */
+  flex-shrink: 0;
 }
 .main__cardimage img {
   display: block;
@@ -523,6 +649,11 @@ CARD STYLES
   -o-object-fit: cover;
      object-fit: cover;
   overflow: hidden;
+  /* Safari image render fix */
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
 }
 .main__cardform {
   font-family: var(--font-family);
@@ -532,6 +663,9 @@ CARD STYLES
   width: 100%;
   font-size: 0.875rem;
   margin-top: 0.625rem;
+  /* текст стабильнее */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 .main__cardform h2 {
   margin-bottom: 0.3125rem;
@@ -552,6 +686,13 @@ MAIN BLOCK (Text + Gradient Masks)
   font-size: 0.65625rem;
   text-align: center;
   color: #c2f9ff;
+  /* фикс блюра и градиентов */
+  transform: translateZ(0);
+  will-change: transform;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* верхняя маска */
+  /* нижняя маска */
 }
 .main__block h2 {
   font-family: var(--font-family);
@@ -560,6 +701,10 @@ MAIN BLOCK (Text + Gradient Masks)
   color: #fff;
   letter-spacing: -0.02em;
   margin-bottom: 0.3125rem;
+  /* safari margin fix */
+  margin-top: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 .main__block h2.mob-22 {
   font-size: 1.375rem;
@@ -577,11 +722,12 @@ MAIN BLOCK (Text + Gradient Masks)
   left: 50%;
   width: 80%;
   height: 6.25rem;
-  transform: translateX(-50%);
+  transform: translateX(-50%) translateZ(0);
   border-radius: 50%;
   background: linear-gradient(211deg, #00d0ff 0%, #0015ff 100%);
   filter: blur(2.5rem);
   z-index: 0;
+  pointer-events: none;
 }
 .main__block::after {
   content: "";
@@ -590,12 +736,13 @@ MAIN BLOCK (Text + Gradient Masks)
   left: 50%;
   width: 180%;
   height: 1.875rem;
-  transform: translateX(-50%) rotate(-5deg);
+  transform: translateX(-50%) rotate(-5deg) translateZ(0);
   border-radius: 50%;
   background: conic-gradient(from 90deg, #00d0ff 0deg, #0015ff 360deg);
   filter: blur(2.5rem);
   opacity: 0.9;
   z-index: 0;
+  pointer-events: none;
 }
 .main__block .main__card {
   position: relative;
@@ -603,18 +750,23 @@ MAIN BLOCK (Text + Gradient Masks)
 }
 
 /* ------------------------------------------------------------------------------------------------------------------------------
-CARD TILE STYLES
+CARD TILE
 --------------------------------------------------------------------------------------------------------------------------------*/
 .main__cardtile {
   padding-bottom: 1.25rem;
   backdrop-filter: blur(0.71875rem);
+  -webkit-backdrop-filter: blur(0.71875rem);
   background: rgba(255, 255, 255, 0.11);
+  background-clip: padding-box;
   border: #92a8ff 0.0625rem solid;
   width: 100%;
   border-radius: 1rem;
   padding-inline: 0.125rem;
   padding-block-start: 0.4375rem;
   padding-block-end: 0.6875rem;
+  /* Safari blur fix */
+  transform: translateZ(0);
+  will-change: backdrop-filter;
 }
 .main__cardtile-row {
   display: flex;
@@ -623,10 +775,16 @@ CARD TILE STYLES
   gap: 0.625rem;
   border-radius: 0.5625rem;
   padding-block: 0.4375rem;
+  /* flex баги safari */
+  min-width: 0;
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------------
+EXTRA
+--------------------------------------------------------------------------------------------------------------------------------*/
+
 .-t-65-dynamic {
-  transform: translateY(-2.0625rem);
+  transform: translateY(-2.0625rem) translateZ(0);
 }
 
 @media (min-width: 640px){
@@ -642,24 +800,23 @@ CARD TILE STYLES
   }
   .rounded-sky-button-lg {
     border-radius: 1.5rem;
-    padding-inline: 1.25rem;
-    height: 2.5rem;
+    padding: 0.5rem 1.25rem;
+    min-height: 2.5rem;
     font-size: 1rem;
   }
   .cooperation-input {
-    height: 2.5rem;
-    padding-inline: 0.75rem;
+    padding: 0.625rem 0.75rem;
+    min-height: 2.5rem;
     border-radius: 0.625rem;
-    font-size: 1rem;
+    font-size: 1rem; /* важно: >=16px чтобы iOS не зумил */
   }
   .header {
     padding-bottom: 2.1875rem;
   }
   .header.desktop {
-    background: url("../images/desktop-top-bg.webp");
-    background-repeat: no-repeat;
-    background-position: 0 0;
+    background: url("../images/desktop-top-bg.webp") no-repeat 0 0;
     background-size: 100% 100%;
+    background-attachment: scroll;
   }
   .header__row {
     height: 4.6875rem;
@@ -677,9 +834,10 @@ CARD TILE STYLES
     border-top-right-radius: 3.375rem;
   }
   .main__container.desktop {
-    background: url("../images/desktop-bg.webp");
+    background: url("../images/desktop-bg.webp") no-repeat 0 0;
     background-size: 100% 100%;
     padding-block-end: 10.3125rem;
+    background-attachment: scroll;
   }
   .main__section {
     gap: 1.25rem;
@@ -689,14 +847,14 @@ CARD TILE STYLES
     height: 13.75rem;
   }
   .main__cardform {
-    font-size: 1.125rem;
+    font-size: 1.375rem;
     margin-top: 0.9375rem;
   }
   .main__cardform form {
     margin-top: 2.5rem;
   }
   .main__block {
-    font-size: 1rem;
+    font-size: 1.5rem;
   }
   .main__block h2.mob-22 {
     font-size: 2rem;
@@ -713,7 +871,7 @@ CARD TILE STYLES
     padding-block: 0.9375rem;
   }
   .-t-65-dynamic {
-    transform: translateY(-2.75rem);
+    transform: translateY(-2.75rem) translateZ(0);
   }
 }
 
@@ -750,14 +908,14 @@ CARD TILE STYLES
   }
   .rounded-sky-button-lg {
     border-radius: 1.6875rem;
-    padding-inline: 1.375rem;
-    height: 3.5625rem;
+    padding: 0.875rem 1.375rem;
+    min-height: 3.5625rem;
     font-weight: 900;
     font-size: 1.5rem;
   }
   .cooperation-input {
-    height: 3.5625rem;
-    padding-inline: 1.0625rem;
+    padding: 0.875rem 1.0625rem;
+    min-height: 3.5625rem;
     border-radius: 0.75rem;
     font-size: 1.5rem;
   }
@@ -819,7 +977,7 @@ CARD TILE STYLES
     padding-inline: 8.125rem;
   }
   .-t-65-dynamic {
-    transform: translateY(-4.0625rem);
+    transform: translateY(-4.0625rem) translateZ(0);
   }
 }
 /*# sourceMappingURL=main.min.css.map */

@@ -7,37 +7,49 @@ MAIN CONTAINER / HEADER
 	background-position: 0 0;
 	background-repeat: no-repeat;
 
+	/* стабильность layout */
+	box-sizing: border-box;
+	position: relative;
+	z-index: 1;
+	min-width: 0;
+
 	padding-block-start: 40px;
 
 	border-top-left-radius: 34px;
 	border-top-right-radius: 34px;
+
 	@include sm {
 		padding-block-start: 50px;
 		border-top-left-radius: 54px;
 		border-top-right-radius: 54px;
 	}
+
 	@include xl {
 		border-top-left-radius: 74px;
 		border-top-right-radius: 74px;
 	}
 
 	// ------------------------------
-	// Фон для мобильной версии
+	// MOBILE BG
 	// ------------------------------
 	&.mobile {
-		background: url("../images/mobile-bg.webp");
+		background: url("../images/mobile-bg.webp") no-repeat 0 0;
 		background-size: 100% 100%;
 		padding-block-end: 50px;
+
+		/* iOS bg repaint fix */
+		background-attachment: scroll;
 	}
 
 	// ------------------------------
-	// Фон для десктопной версии
+	// DESKTOP BG
 	// ------------------------------
 	&.desktop {
 		@include sm() {
-			background: url("../images/desktop-bg.webp");
+			background: url("../images/desktop-bg.webp") no-repeat 0 0;
 			background-size: 100% 100%;
 			padding-block-end: 165px;
+			background-attachment: scroll;
 		}
 	}
 }
@@ -49,6 +61,9 @@ MAIN SECTION
 	display: flex;
 	flex-direction: column;
 	gap: 2px;
+
+	/* safari flex fix */
+	min-width: 0;
 
 	@include sm {
 		gap: 20px;
@@ -68,10 +83,17 @@ CARD STYLES
 	align-items: center;
 	color: var(--text);
 
+	/* чтобы blur/transform не лагал */
+	position: relative;
+	z-index: 1;
+
 	&image {
 		width: 160px;
 		height: 160px;
-		// планшет
+
+		/* чтобы img не схлопывался */
+		flex-shrink: 0;
+
 		@include sm() {
 			width: 220px;
 			height: 220px;
@@ -87,6 +109,10 @@ CARD STYLES
 			height: auto;
 			object-fit: cover;
 			overflow: hidden;
+
+			/* Safari image render fix */
+			-webkit-user-drag: none;
+			user-select: none;
 		}
 	}
 
@@ -99,8 +125,13 @@ CARD STYLES
 
 		font-size: 14px;
 		margin-top: 10px;
+
+		/* текст стабильнее */
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+
 		@include sm {
-			font-size: 18px;
+			font-size: 22px;
 			margin-top: 15px;
 		}
 		@include xl {
@@ -114,6 +145,7 @@ CARD STYLES
 
 		form {
 			margin-top: 25px;
+
 			@include sm() {
 				margin-top: 40px;
 			}
@@ -129,7 +161,7 @@ MAIN BLOCK (Text + Gradient Masks)
 --------------------------------------------------------------------------------------------------------------------------------*/
 .main__block {
 	position: relative;
-	overflow: visible; // чтобы маски вылезали за блок
+	overflow: visible;
 	text-align: center;
 
 	font-family: var(--font-family);
@@ -138,9 +170,15 @@ MAIN BLOCK (Text + Gradient Masks)
 	text-align: center;
 	color: #c2f9ff;
 
-	// планшетный текст
+	/* фикс блюра и градиентов */
+	transform: translateZ(0);
+	will-change: transform;
+
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+
 	@include sm() {
-		font-size: 16px;
+		font-size: 24px;
 	}
 
 	@include xl {
@@ -155,96 +193,85 @@ MAIN BLOCK (Text + Gradient Masks)
 		letter-spacing: -0.02em;
 		margin-bottom: 5px;
 
+		/* safari margin fix */
+		margin-top: 0;
+
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+
 		&.mob-22 {
 			font-size: 22px;
-			@include sm() {
-				font-size: 32px;
-			}
-			@include xl {
-				font-size: 48px;
-			}
+			@include sm() { font-size: 32px; }
+			@include xl { font-size: 48px; }
 		}
 
 		&.mob-24 {
 			font-size: 24px;
-			@include sm() {
-				font-size: 36px;
-			}
-			@include xl {
-				font-size: 48px;
-			}
+			@include sm() { font-size: 36px; }
+			@include xl { font-size: 48px; }
 		}
 
 		&.mob-25 {
 			font-size: 25px;
-			@include sm() {
-				font-size: 38px;
-			}
-			@include xl {
-				font-size: 48px;
-			}
+			@include sm() { font-size: 38px; }
+			@include xl { font-size: 48px; }
 		}
 	}
 
-	// ------------------------------
-	// Верхняя маска — компактная
-	// ------------------------------
+	/* верхняя маска */
 	&::before {
 		content: "";
 		position: absolute;
-		top: 25%; // сверху блока
+		top: 25%;
 		left: 50%;
-		width: 80%; // 70% ширины блока
-		height: 100px; // базовая высота для мобилки
-		transform: translateX(-50%);
+		width: 80%;
+		height: 100px;
+		transform: translateX(-50%) translateZ(0);
 		border-radius: 50%;
 		background: linear-gradient(211deg, #00d0ff 0%, #0015ff 100%);
 		filter: blur(40px);
 		z-index: 0;
+		pointer-events: none;
 
 		@include md() {
 			width: 70%;
-			height: 110px; // планшет
+			height: 110px;
 			filter: blur(60px);
 		}
 
 		@include lg() {
-			height: 120px; // десктоп
+			height: 120px;
 			filter: blur(80px);
 		}
 	}
 
-	// ------------------------------
-	// Нижняя маска — широкая, фон
-	// ------------------------------
+	/* нижняя маска */
 	&::after {
 		content: "";
 		position: absolute;
-		top: 40%; // чуть ниже верхней маски
+		top: 40%;
 		left: 50%;
-		width: 180%; // выходит за края блока
-		height: 30px; // базовая высота для мобилки
-		transform: translateX(-50%) rotate(-5deg);
+		width: 180%;
+		height: 30px;
+		transform: translateX(-50%) rotate(-5deg) translateZ(0);
 		border-radius: 50%;
 		background: conic-gradient(from 90deg, #00d0ff 0deg, #0015ff 360deg);
 		filter: blur(40px);
 		opacity: 0.9;
 		z-index: 0;
+		pointer-events: none;
 
 		@include md() {
-			height: 115px; // планшет
+			height: 115px;
 			filter: blur(70px);
 		}
 
 		@include lg() {
-			height: 130px; // десктоп
+			height: 130px;
 			filter: blur(80px);
 		}
 	}
 
-	// ------------------------------
-	// Карточка поверх масок
-	// ------------------------------
 	.main__card {
 		position: relative;
 		z-index: 1;
@@ -252,12 +279,16 @@ MAIN BLOCK (Text + Gradient Masks)
 }
 
 /* ------------------------------------------------------------------------------------------------------------------------------
-CARD TILE STYLES
+CARD TILE
 --------------------------------------------------------------------------------------------------------------------------------*/
 .main__cardtile {
 	padding-bottom: 20px;
+
 	backdrop-filter: blur(11.5px);
+	-webkit-backdrop-filter: blur(11.5px);
+
 	background: rgba(255, 255, 255, 0.11);
+	background-clip: padding-box;
 
 	border: #92a8ff 1px solid;
 	width: 100%;
@@ -267,15 +298,16 @@ CARD TILE STYLES
 	padding-block-start: 7px;
 	padding-block-end: 11px;
 
+	/* Safari blur fix */
+	transform: translateZ(0);
+	will-change: backdrop-filter;
+
 	@include xl {
 		border-radius: 27px;
 		padding-block: 20px;
 		padding-inline: 35px;
 	}
 
-	// ------------------------------
-	// Строка для формы
-	// ------------------------------
 	&-row {
 		display: flex;
 		align-items: center;
@@ -284,6 +316,10 @@ CARD TILE STYLES
 		gap: 10px;
 		border-radius: 9px;
 		padding-block: 7px;
+
+		/* flex баги safari */
+		min-width: 0;
+
 		@include sm {
 			gap: 20px;
 			border-radius: 15px;
@@ -297,18 +333,23 @@ CARD TILE STYLES
 	}
 }
 
-// extra clases
+/* ------------------------------------------------------------------------------------------------------------------------------
+EXTRA
+--------------------------------------------------------------------------------------------------------------------------------*/
 .px-150-dynamic {
 	@include xl {
 		padding-inline: 130px;
 	}
 }
+
 .-t-65-dynamic {
-	transform: translateY(-33px);
+	transform: translateY(-33px) translateZ(0);
+
 	@include sm {
-		transform: translateY(-44px);
+		transform: translateY(-44px) translateZ(0);
 	}
+
 	@include xl {
-		transform: translateY(-65px);
+		transform: translateY(-65px) translateZ(0);
 	}
 }

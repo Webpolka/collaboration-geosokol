@@ -4,6 +4,12 @@ HEADER
 .header {
 	min-height: 200px;
 	padding-bottom: 20px;
+
+	/* фикс рендеринга на Safari */
+	box-sizing: border-box;
+	position: relative;
+	z-index: 1;
+
 	@include sm {
 		padding-bottom: 35px;
 	}
@@ -12,10 +18,11 @@ HEADER
 	// Фон для мобильной версии
 	// ------------------------------
 	&.mobile {
-		background: url("../images/mobile-top-bg.webp");
-		background-repeat: no-repeat;
-		background-position: 0 0;
+		background: url("../images/mobile-top-bg.webp") no-repeat 0 0;
 		background-size: 100% 100%;
+
+		/* фикс дерганий фона на iOS */
+		background-attachment: scroll;
 	}
 
 	// ------------------------------
@@ -23,15 +30,14 @@ HEADER
 	// ------------------------------
 	&.desktop {
 		@include sm() {
-			background: url("../images/desktop-top-bg.webp");
-			background-repeat: no-repeat;
-			background-position: 0 0;
+			background: url("../images/desktop-top-bg.webp") no-repeat 0 0;
 			background-size: 100% 100%;
+			background-attachment: scroll;
 		}
 	}
 
 	// ------------------------------
-	// Строка внутри хедера: логотип + кнопки/контент
+	// Строка внутри хедера
 	// ------------------------------
 	&__row {
 		height: 55px;
@@ -42,6 +48,9 @@ HEADER
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+
+		/* Safari flex fix */
+		min-width: 0;
 	}
 
 	// ------------------------------
@@ -51,15 +60,28 @@ HEADER
 		display: block;
 		aspect-ratio: 158/37;
 		width: 158px;
+
+		/* чтобы не схлопывался в flex */
+		flex-shrink: 0;
 	}
 
 	// ------------------------------
-	// Секция “Cooperation” с текстом
+	// Cooperation блок
 	// ------------------------------
 	&__cooperation {
 		display: flex;
 		flex-direction: column;
 		gap: 10px;
+
+		font-family: var(--font-family);
+		font-weight: 900;
+		font-size: 11px;
+		text-align: center;
+		color: #c2f9ff;
+
+		/* стабильность текста */
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
 
 		@include sm() {
 			gap: 18px;
@@ -75,16 +97,10 @@ HEADER
 			text-align: center;
 			color: #c2f9ff;
 		}
-
-		font-family: var(--font-family);
-		font-weight: 900;
-		font-size: 11px;
-		text-align: center;
-		color: #c2f9ff;
 	}
 
 	// ------------------------------
-	// Основной заголовок
+	// H1
 	// ------------------------------
 	h1 {
 		font-family: var(--font-family);
@@ -92,8 +108,14 @@ HEADER
 		font-size: 28px;
 		color: #fff;
 
+		margin: 0; /* safari стандартный margin убираем */
+
+		/* красивый текст на apple */
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+
 		@include sm() {
-			font-size: 48px; // планшет
+			font-size: 48px;
 		}
 
 		@include xl {
@@ -105,10 +127,14 @@ HEADER
 	}
 
 	// ------------------------------
-	// Кнопка в хедере
+	// Кнопка
 	// ------------------------------
 	.rounded-button-lg {
 		margin-inline: auto;
 		margin-top: 10px;
+
+		/* фикс Safari margin auto */
+		display: flex;
+		justify-content: center;
 	}
 }

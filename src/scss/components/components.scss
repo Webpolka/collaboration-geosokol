@@ -6,37 +6,63 @@ COMPONENTS
 // Small Button
 // ------------------------------------------------------
 .rounded-button-sm {
+	-webkit-appearance: none;
+	appearance: none;
+	box-sizing: border-box;
+
 	border-radius: 27px;
+
+	/* Safari backdrop fix */
 	backdrop-filter: blur(122.5px);
+	-webkit-backdrop-filter: blur(122.5px);
+
 	background: rgba(255, 255, 255, 0.11);
-	padding-inline: 22px;
-	height: 33px;
 
-	display: flex;
+	padding: 6px 22px; /* вместо height */
+	min-height: 33px;
+
+	display: inline-flex;
 	align-items: center;
-	gap: 5px;
+	justify-content: center;
 
-	// Иконки внутри кнопки
-	svg {
-		width: 22px;
-		height: 22px;
-	}
+	/* старые iOS иногда плохо с gap */
+	gap: 6px;
 
 	font-family: var(--font-family);
 	font-weight: 600;
 	font-size: 16px;
+	line-height: 1;
 	color: #fff;
 
-	border: #92a8ff 1px solid;
-	transition: all 0.3s ease-in-out;
+	border: 1px solid #92a8ff;
 	cursor: pointer;
+	transition: background 0.25s ease, border 0.25s ease, transform 0.08s ease;
 
-	&:hover {
-		background: rgba(255, 255, 255, 0.31);
+	/* сглаживание текста на Apple */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+
+	/* фикс странных обрезаний blur */
+	background-clip: padding-box;
+
+	svg {
+		width: 20px;
+		height: 20px;
+		flex-shrink: 0;
+		display: block;
 	}
 
-	&:focus {
-		outline: #92efff 2px solid;
+	&:hover {
+		background: rgba(255, 255, 255, 0.28);
+	}
+
+	&:active {
+		transform: scale(0.97);
+	}
+
+	&:focus-visible {
+		outline: 2px solid #92efff;
+		outline-offset: 2px;
 	}
 }
 
@@ -44,39 +70,73 @@ COMPONENTS
 // Large Button
 // ------------------------------------------------------
 .rounded-button-lg {
+	-webkit-appearance: none;
+	appearance: none;
+	box-sizing: border-box;
+
 	border-radius: 27px;
+
+	/* blur фикс для Safari */
 	backdrop-filter: blur(12px);
+	-webkit-backdrop-filter: blur(12px);
+
 	background: rgba(255, 255, 255, 0.16);
-	padding-inline: 22px;
-	height: 57px;
+	background-clip: padding-box;
 
-	display: flex;
+	/* вместо height — стабильнее на iOS */
+	padding: 14px 22px;
+	min-height: 57px;
+
+	display: inline-flex;
 	align-items: center;
+	justify-content: center;
 	gap: 10px;
-
-	// Иконки внутри кнопки
-	svg {
-		width: 22px;
-		height: 22px;
-	}
 
 	font-family: var(--font-family);
 	font-weight: 600;
 	font-size: 24px;
-	text-align: center;
+	line-height: 1;
 	color: #fff;
-	text-shadow: 0 1px 20px 0 rgba(0, 0, 0, 0.1);
+	text-align: center;
 
-	border: #92a8ff 1px solid;
-	transition: all 0.3s ease-in-out;
+	/* Apple текст фикс */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+
+	text-shadow: 0 1px 20px rgba(0, 0, 0, 0.1);
+
+	border: 1px solid #92a8ff;
 	cursor: pointer;
 
-	&:hover {
-		background: rgba(255, 255, 255, 0.31);
+	/* не юзай transition: all — Safari лагает */
+	transition: 
+		background 0.25s ease,
+		border 0.25s ease,
+		transform 0.08s ease,
+		box-shadow 0.25s ease;
+
+	/* фикс blur артефактов */
+	will-change: backdrop-filter, transform;
+
+	svg {
+		width: 22px;
+		height: 22px;
+		flex-shrink: 0;
+		display: block;
 	}
 
-	&:focus {
-		outline: #92efff 2px solid;
+	&:hover {
+		background: rgba(255, 255, 255, 0.30);
+	}
+
+	&:active {
+		transform: scale(0.97);
+	}
+
+	/* нормальный фокус для Apple */
+	&:focus-visible {
+		outline: 2px solid #92efff;
+		outline-offset: 3px;
 	}
 }
 
@@ -84,48 +144,89 @@ COMPONENTS
 // Кнопка внутри формы
 // ------------------------------
 .rounded-sky-button-lg {
+	-webkit-appearance: none;
+	appearance: none;
+	box-sizing: border-box;
 	flex-shrink: 0;
-	padding-inline: 17px;
+
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+
 	border-radius: 20px;
+	padding: 4px 17px;
+	min-height: 20px;
 
 	font-family: var(--font-family);
 	font-weight: 900;
 	font-size: 8px;
+	line-height: 1;
 	text-align: center;
 	color: #fff;
-	height: 20px;
 
+	/* текст красивее на Apple */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+
+	text-shadow: 0 1px 20px rgba(0, 0, 0, 0.1);
+
+	border: 1px solid #92a8ff;
+
+	/* blur фикс */
+	backdrop-filter: blur(11px);
+	-webkit-backdrop-filter: blur(11px);
+
+	/* градиент стабильный */
+	background: linear-gradient(
+		140deg,
+		rgba(0, 255, 252, 0.87) 0%,
+		rgba(0, 188, 255, 0.87) 100%
+	);
+	background-clip: padding-box;
+
+	cursor: pointer;
+
+	/* Safari лаги убираем */
+	transition:
+		opacity 0.25s ease,
+		transform 0.08s ease,
+		box-shadow 0.25s ease;
+
+	will-change: transform, opacity, backdrop-filter;
+
+	/* tap фикс iOS */
+	-webkit-tap-highlight-color: transparent;
+	touch-action: manipulation;
+
+	&:hover {
+		opacity: 0.8;
+	}
+
+	&:active {
+		transform: scale(0.97);
+	}
+
+	&:focus-visible {
+		outline: 2px solid #92efff;
+		outline-offset: 2px;
+	}
+
+	/* ===== SM ===== */
 	@include sm() {
 		border-radius: 24px;
-		padding-inline: 20px;
-		height: 40px;
+		padding: 8px 20px;
+		min-height: 40px;
 		font-size: 16px;
 	}
 
+	/* ===== XL ===== */
 	@include xl {
 		border-radius: 27px;
-		padding-inline: 22px;
-		height: 57px;
+		padding: 14px 22px;
+		min-height: 57px;
 
 		font-weight: 900;
 		font-size: 24px;
-	}
-
-	text-shadow: 0 1px 20px 0 rgba(0, 0, 0, 0.1);
-
-	border: #92a8ff 1px solid;
-	transition: all 0.3s ease-in-out;
-
-	backdrop-filter: blur(11px);
-	background: linear-gradient(140deg, rgba(0, 255, 252, 0.87) 0%, rgba(0, 188, 255, 0.87) 100%);
-
-	&:hover {
-		opacity: 0.75;
-	}
-	cursor: pointer;
-
-	&:focus {
-		outline: #92efff 2px solid;
 	}
 }
 
@@ -133,44 +234,77 @@ COMPONENTS
 // Input Field for Cooperation Section
 // ------------------------------------------------------
 .cooperation-input {
-	height: 19px;
-	border-radius: 4px;
-	padding-inline: 5px;
-
-	font-family: var(--font-family);
-	font-weight: 400;
-	font-size: 8px;
-	color: #fff;
-
-	@include sm() {
-		height: 40px;
-		padding-inline: 12px;
-		border-radius: 10px;
-		font-size: 16px;
-	}
-
-	@include xl {
-		height: 57px;
-		padding-inline: 17px;
-		border-radius: 12px;
-		font-size: 24px;
-	}
+	-webkit-appearance: none;
+	appearance: none;
+	box-sizing: border-box;
 
 	flex-grow: 1;
 	width: 100%;
 
-	padding-block: 10px;
+	display: block;
 
+	/* вместо height — стабильнее */
+	padding: 6px 8px;
+	min-height: 19px;
+
+	border-radius: 4px;
+
+	font-family: var(--font-family);
+	font-weight: 400;
+	font-size: 8px;
+	line-height: 1.2;
+	color: #fff;
+
+	/* текст красивый на Apple */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+
+	/* blur фикс */
 	backdrop-filter: blur(10px);
+	-webkit-backdrop-filter: blur(10px);
+
 	background: rgba(255, 255, 255, 0.11);
+	background-clip: padding-box;
 
-	border: #92efff 1px solid;
+	border: 1px solid #92efff;
 
-	&:focus {
-		outline: #92efff 2px solid;
-	}
+	transition:
+		border 0.2s ease,
+		box-shadow 0.2s ease,
+		background 0.2s ease;
 
+	/* убирает zoom iOS при фокусе */
+	transform: translateZ(0);
+
+	/* убирает системный стиль iOS */
+	-webkit-tap-highlight-color: transparent;
+
+	/* placeholder */
 	&::placeholder {
 		color: rgba(255, 255, 255, 0.75);
+		opacity: 1; /* safari фикс */
+	}
+
+	/* focus */
+	&:focus {
+		outline: none;
+		border: 1px solid #92efff;
+		box-shadow: 0 0 0 2px rgba(146, 239, 255, 0.35);
+	}
+
+	/* ===== SM ===== */
+	@include sm() {
+		padding: 10px 12px;
+		min-height: 40px;
+		border-radius: 10px;
+		font-size: 16px; /* важно: >=16px чтобы iOS не зумил */
+	}
+
+	/* ===== XL ===== */
+	@include xl {
+		padding: 14px 17px;
+		min-height: 57px;
+		border-radius: 12px;
+		font-size: 24px;
 	}
 }
